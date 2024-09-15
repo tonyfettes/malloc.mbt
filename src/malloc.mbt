@@ -141,31 +141,25 @@ fn Manager::merge_block(self : Manager, index : Int) -> Int {
 }
 
 fn Manager::search_block(self : Manager, address : Int) -> Int {
-  // let length = self.blocks.length()
-  // loop 0, length, length / 2 {
-  //   left, right, middle => {
-  //     if left == right {
-  //       abort("invalid free \{address}")
-  //     }
-  //     let block = self.blocks[middle]
-  //     if block.address > address {
-  //       continue left, middle, (left + middle) / 2
-  //     }
-  //     if block.address == address {
-  //       return middle
-  //     }
-  //     if block.address + block.size <= address {
-  //       continue middle, right, (middle + right) / 2
-  //     }
-  //     abort("non-aligned address")
-  //   }
-  // }
-  for i = 0; i < self.blocks.length(); i = i + 1 {
-    if self.blocks[i].address == address {
-      return i
+  let length = self.blocks.length()
+  loop 0, length, length / 2 {
+    left, right, middle => {
+      if left == right {
+        abort("invalid free \{address}")
+      }
+      let block = self.blocks[middle]
+      if block.address > address {
+        continue left, middle, (left + middle) / 2
+      }
+      if block.address == address {
+        return middle
+      }
+      if block.address + block.size <= address {
+        continue middle, right, (middle + right) / 2
+      }
+      abort("non-aligned address")
     }
   }
-  abort("invalid free \{address}")
 }
 
 fn Manager::deallocate(self : Manager, address : Int) -> Unit {
