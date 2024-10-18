@@ -288,7 +288,7 @@ extern "wasm" fn load_i32(address : Int) -> Int =
   #| local.get 0
   #| i32.load)
 
-test "panic Manager::reallocate" {
+test "Manager::reallocate" {
   let manager = Manager::new()
   let address_42 = manager.allocate(4)
   store_i32(address_42, 42)
@@ -299,7 +299,6 @@ test "panic Manager::reallocate" {
   inspect!(address_84, content="8")
   inspect!(load_i32(address_84), content="42")
   inspect!(load_i32(address_84 + 4), content="0")
-  panic()
 }
 
 let manager : Manager = Manager::new()
