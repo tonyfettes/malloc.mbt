@@ -1,4 +1,4 @@
-struct Block {
+priv struct Block {
   address : Int
   mut size : Int
   mut occupied : Bool
@@ -25,7 +25,7 @@ extern "wasm" fn memory_grow(size : Int) -> Int =
   #| local.get 0
   #| memory.grow)
 
-struct Manager {
+priv struct Manager {
   blocks : Array[Block]
 }
 
