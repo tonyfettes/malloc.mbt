@@ -93,7 +93,12 @@ fn Manager::shrink_block(self : Manager, index : Int, size : Int) -> Unit {
   self.blocks[index].size = size
 }
 
+let empty_block = 65536
+
 fn Manager::allocate(self : Manager, size : Int) -> Int {
+  if size == 0 {
+    return empty_block
+  }
   for i = 0; i < self.blocks.length(); i = i + 1 {
     if self.blocks[i].occupied {
       continue
@@ -163,6 +168,9 @@ fn Manager::search_block(self : Manager, address : Int) -> Int {
 }
 
 fn Manager::deallocate(self : Manager, address : Int) -> Unit {
+  if address == empty_block {
+    return
+  }
   let index = self.search_block(address)
   if not(self.blocks[index].occupied) {
     abort("double-free \{address}")
