@@ -304,14 +304,35 @@ test "panic Manager::reallocate" {
 
 let manager : Manager = Manager::new()
 
+/// Allocates a block of memory of the specified `size` and returns the address
+/// of the allocated memory.
+///
+/// Parameters:
+///
+/// - `size`: The size of the memory block to allocate, in bytes.
+///
+/// Returns the address of the allocated memory block as an integer.
 pub fn malloc(size : Int) -> Int {
   manager.allocate(size)
 }
 
+/// Deallocates a block of memory of the specified size.
+///
+/// Parameters:
+///
+/// - `size`: The size of the memory block to be deallocated, in bytes.
 pub fn free(size : Int) -> Unit {
   manager.deallocate(size)
 }
 
+/// Reallocate memory at the given `address` to the specified `size`.
+///
+/// Parameters:
+///
+/// - `address`: The memory address to reallocate.
+/// - `size`: The new size for the memory block.
+///
+/// Returns the new memory address after reallocation.
 pub fn realloc(address : Int, size : Int) -> Int {
   manager.reallocate(address, size)
 }
