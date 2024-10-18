@@ -2,9 +2,9 @@
   "name": "tonyfettes/malloc",
   "version": "0.1.1",
   "readme": "README.md",
-  "repository": "",
+  "repository": "https://github.com/tonyfettes/malloc.mbt",
   "license": "Apache-2.0",
   "keywords": [],
-  "description": "",
+  "description": "An simple external allocator",
   "source": "src"
 }
