@@ -171,7 +171,7 @@ fn Manager::deallocate(self : Manager, address : Int) -> Unit {
   self.merge_block(index) |> ignore
 }
 
-test "panic Manager::deallocate - reuse" {
+test "Manager::deallocate - reuse" {
   let manager = Manager::new()
   inspect!(manager.allocate(8), content="0")
   inspect!(manager, content="[0 + 8, 8 - 65536]")
@@ -179,10 +179,9 @@ test "panic Manager::deallocate - reuse" {
   inspect!(manager, content="[0 - 65536]")
   inspect!(manager.allocate(8), content="0")
   inspect!(manager, content="[0 + 8, 8 - 65536]")
-  panic()
 }
 
-test "panic Manager::deallocate - merge" {
+test "Manager::deallocate - merge" {
   let manager = Manager::new()
   inspect!(manager.allocate(8), content="0")
   inspect!(manager, content="[0 + 8, 8 - 65536]")
@@ -200,7 +199,6 @@ test "panic Manager::deallocate - merge" {
   inspect!(manager, content="[0 + 16, 16 - 65536]")
   manager.deallocate(0)
   inspect!(manager, content="[0 - 65536]")
-  panic()
 }
 
 test "panic Manager::deallocate - double free" {
@@ -216,7 +214,7 @@ test "panic Manager::deallocate - invalid free" {
   manager.deallocate(8)
 }
 
-test "panic Manager::deallocate - fragment" {
+test "Manager::deallocate - fragment" {
   let manager = Manager::new()
   inspect!(manager.allocate(8), content="0")
   inspect!(manager, content="[0 + 8, 8 - 65536]")
@@ -225,7 +223,6 @@ test "panic Manager::deallocate - fragment" {
   manager.deallocate(0)
   inspect!(manager, content="[0 - 8, 8 + 16, 16 - 65536]")
   inspect!(manager.allocate(16), content="16")
-  panic()
 }
 
 extern "wasm" fn memory_copy(destination : Int, source : Int, length : Int) =
