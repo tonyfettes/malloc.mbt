@@ -1,0 +1,17 @@
+package tonyfettes/malloc
+
+// Values
+fn free(Int) -> Unit
+
+fn malloc(Int) -> Int
+
+fn realloc(Int, Int) -> Int
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+
+// Extension Methods
+
