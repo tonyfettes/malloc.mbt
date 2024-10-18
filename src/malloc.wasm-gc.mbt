@@ -139,6 +139,14 @@ test "Manager::allocate" {
   )
 }
 
+test "Manager::allocate - zero length" {
+  let manager = Manager::new()
+  inspect!(manager.allocate(0), content="65536")
+  inspect!(manager, content="[0 - 65536]")
+  inspect!(manager.allocate(0), content="65536")
+  inspect!(manager, content="[0 - 65536]")
+}
+
 fn Manager::merge_block(self : Manager, index : Int) -> Int {
   let index = self.merge_block_backward(index)
   self.merge_block_forward(index)
@@ -231,6 +239,14 @@ test "Manager::deallocate - fragment" {
   manager.deallocate(0)
   inspect!(manager, content="[0 - 8, 8 + 16, 16 - 65536]")
   inspect!(manager.allocate(16), content="16")
+}
+
+test "Manager::deallocate - zero length" {
+  let manager = Manager::new()
+  inspect!(manager.allocate(0), content="65536")
+  inspect!(manager, content="[0 - 65536]")
+  manager.deallocate(65536)
+  inspect!(manager, content="[0 - 65536]")
 }
 
 extern "wasm" fn memory_copy(destination : Int, source : Int, length : Int) =
